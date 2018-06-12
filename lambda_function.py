@@ -80,7 +80,7 @@ def polaris_new_user(new_user_email):
 
     if 'errors' in result:
         if result['errors'][0]['message'] == "ALREADY_EXISTS: cant create user as conflicts with existing one":
-            return 'The email {} already exsits or has been previously invited to Polaris. See the Forgot password option at https://{} for access.'.format(new_user_email, POLARIS_URL)
+            return 'The email {} already exists or has been previously invited to Polaris. See the Forgot password option at https://{} for access.'.format(new_user_email, POLARIS_URL)
         elif result['errors'][0]['message'] == "INVALID_ARGUMENT: cant create user as email address is invalid":
             return 'Please only enter a valid email address (ex: /polaris first.last@{}). You entered /polaris {}.'.format(EMAIL_DOMAIN, new_user_email)
         else:
