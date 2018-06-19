@@ -9,6 +9,11 @@ Integrate Rubrik Polaris, AWS Lambda, and Slack to automate the creation of new 
 
 [Slack Slash Commands](https://api.slack.com/slash-commands) require a response within 3 seconds so in order to avoid timeout errors we need to utillize two seperate Lambda functions -- a response function and a worker function.
 
+
+## Response Function: `slack_response.py`
+
+The main purpose of the `slack_response` function is to send a 200 status code back to Slack as quickly as possible in order to avoid timeout errors. The function also collects all of the relevant variables and passes those to the `worker_function` through the [Amazon Simple Notification Service (SNS)](https://aws.amazon.com/sns/).
+
 The function will be triggered through the [Amazon API Gateway](https://aws.amazon.com/api-gateway/) that the Slash Command will initially call. The URL provided by the API Gateway will need to be populated in the `Request URL` field when creating the Slash Command.
 
 <p></p>
@@ -25,13 +30,6 @@ The `sns_arn` field corresponds to the Amazon Resource Name of the SNS topic tha
 <p align="center">
   <img src="https://user-images.githubusercontent.com/8610203/41612299-13ae821e-73b8-11e8-9665-ca3c7b1efde2.png" alt="Environmental Variables"/>
 </p>
-
-
-## Response Function: `slack_response.py`
-
-The main purpose of the `slack_response` function is to send a 200 status code back to Slack as quickly as possible in order to avoid timeout errors. The function also collects all of the relevant variables and passes those to the `worker_function` through the [Amazon Simple Notification Service (SNS)](https://aws.amazon.com/sns/).
-
-
 
 ## Worker Function: `worker_function.py`
 
