@@ -35,9 +35,4 @@ The `sns_arn` field corresponds to the Amazon Resource Name of the SNS topic tha
 
 Once the `worker_function` is triggered by Amazon SNS it will parse all of the variables sent by the `slack_response` function and then validate the information that was provide by the user through Slack. Once those checks have completed it will connect to the Rubrik Polaris account and attempt to create a new user. From there it will send a response to Slack with either a success message or relevant error message in human readable format if possible.
 
-#### Created and Maintained by the Rubrik Ranger Team
 
-<p></p>
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/8610203/37415009-6f9cf416-2778-11e8-8b56-052a8e41c3c8.png" alt="Rubrik Ranger Logo"/>
-</p>
