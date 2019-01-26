@@ -50,8 +50,9 @@ def polaris_new_user(new_user_email, polaris_username, polaris_password, polaris
     # Creat a New User
     authentication_header = {"authorization": "Bearer {}".format(access_token)}
 
-    query = {"operationName": "CreateUser", "variables": {"email": new_user_email},
-             "query": "mutation CreateUser($email: String!) {\n  createUser(email: $email)\n}\n"}
+    
+    # grant user access to the admin role
+    query = {"operationName":"InviteUser","variables":{"email":new_user_email,"roleId":"00000000-0000-0000-0000-000000000000"},"query":"mutation InviteUser($email: String!, $roleId: String) {\n  createUser(email: $email, roleId: $roleId)\n}\n"}
 
     logger.info('Creating new user.')
     new_user_request = requests.post('https://{}/api/graphql'.format(polaris_url),
@@ -100,14 +101,15 @@ def lambda_handler(event, context):
     email_domain = response_body['email_domain']
     new_user_email = response_body['new_user_email']
 
+    logger.info('New User Email: {}'.format(new_user_email))
+
     try:
         email_check = new_user_email.split('@')
         if email_check[1] != email_domain:
             return slack_notify(slack_response_url, "{} is not a valid @{} email address.".format(new_user_email, email_domain))
         else:
-            create_new_user = polaris_new_user(new_user_email, polaris_username,
-                                               polaris_password, polaris_url, email_domain)
+            create_new_user = polaris_new_user(new_user_email, polaris_username, polaris_password, polaris_url, email_domain)
 
             return slack_notify(slack_response_url, '{}'.format(create_new_user))
     except:
-        return slack_notify(slack_response_url, "{} is not a valid @{} email address.".format(new_user_email, email_domain))
+        return slack_notify(slack_response_url, "Failed to create the new user account. Please notify your administrator.")
