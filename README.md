@@ -28,7 +28,7 @@ The `sns_arn` field corresponds to the Amazon Resource Name of the SNS topic tha
 
 <p></p>
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/8610203/41612299-13ae821e-73b8-11e8-9665-ca3c7b1efde2.png" alt="Environmental Variables"/>
+  <img src="https://user-images.githubusercontent.com/12414122/51993952-cec46480-247d-11e9-8326-fd5b43f7f1f0.png" alt="Environmental Variables"/>
 </p>
 
 ## Worker Function: `worker_function.py`
