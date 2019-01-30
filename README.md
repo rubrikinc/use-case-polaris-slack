@@ -21,7 +21,7 @@ The function will be triggered through the [Amazon API Gateway](https://aws.amaz
   <img src="https://user-images.githubusercontent.com/8610203/41612298-139901d2-73b8-11e8-9e44-e7928f0c548f.png" alt="Lambda Designer"/>
 </p>
 
-You'll also need to populate the follow Envrionment variables which will be ready by the function. The `kmsEncryptedToken`, which corresponds to the Slash Commands `Verification Token`, and the `polaris_password` will need to be encrypted.
+You'll also need to populate the follow Envrionment variables which will be ready by the function. The `kms_encrypted_token`, which corresponds to the Slash Commands `Verification Token`, and the `polaris_password` will need to be encrypted.
 
 The `sns_arn` field corresponds to the Amazon Resource Name of the SNS topic that is subscribed to the `worker_function`.
 
