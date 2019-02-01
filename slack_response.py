@@ -24,7 +24,7 @@ logger.setLevel(logging.INFO)
 
 
 # Encypted Passwords passed from Lambda
-ENCRYPTED_EXPECTED_TOKEN = os.environ['kmsEncryptedToken']
+ENCRYPTED_EXPECTED_TOKEN = os.environ['kms_encrypted_token']
 ENCRYPTED_POLARIS_PASSWORD = os.environ['polaris_password']
 
 # AWS KMS Variables
