@@ -11,4 +11,16 @@ Integrate Rubrik Polaris, AWS Lambda, and Slack to automate the creation of new 
 
 * [Quick Start Guide](https://github.com/rubrikinc/use-case-polaris-slack/blob/master/docs/quick-start.md)
 
+## Additional Links
 
+* [VIDEO: Getting Started Creating Polaris Accounts with Slack](https://www.youtube.com/watch?v=fWZGRA3Et2I&feature=youtu.be)
+* [BLOG: Welcome to Polaris: Courtesy of Slack and Serverless Compute](https://www.rubrik.com/blog/polaris-apis-slack-serverless-compute/)
+
+## Contributing
+We glady welcome contributions from the community. From updating the documentation to adding more functions to this use case, all ideas are welcome!
+
+* [Contributing Guide](https://github.com/rubrikinc/use-case-polaris-slack/blob/master/CONTRIBUTING.md)
+
+## License
+
+* [MIT License](https://github.com/rubrikinc/use-case-polaris-slack/blob/master/LICENSE)
