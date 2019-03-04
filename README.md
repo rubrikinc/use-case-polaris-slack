@@ -25,7 +25,7 @@ There are a few services you'll need in order to get this project off the ground
 
 # :muscle: How You Can Help
 
-We glady welcome contributions from the community. From updating the documentation to adding more Intents for Roxie, all ideas are welcome. Thank you in advance for all of your issues, pull requests, and comments! :star:
+We glady welcome contributions from the community. From updating the documentation to adding more functions for Slack slash commands, all ideas are welcome. Thank you in advance for all of your issues, pull requests, and comments! :star:
 
 * [Contributing Guide](CONTRIBUTING.md)
 * [Code of Conduct](CODE_OF_CONDUCT.md)
