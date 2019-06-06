@@ -50,9 +50,13 @@ def polaris_new_user(new_user_email, polaris_username, polaris_password, polaris
     # Creat a New User
     authentication_header = {"authorization": "Bearer {}".format(access_token)}
 
-    
     # grant user access to the admin role
-    query = {"operationName":"InviteUser","variables":{"email":new_user_email,"roleId":"00000000-0000-0000-0000-000000000000"},"query":"mutation InviteUser($email: String!, $roleId: String) {\n  createUser(email: $email, roleId: $roleId)\n}\n"}
+    query = {
+        "operationName": "InviteUser",
+        "variables": {
+            "email": new_user_email,
+            "roleIds": "00000000-0000-0000-0000-000000000000"},
+        "query": "mutation InviteUser($email: String!, $roleIds: [String!]!) {createUser(email: $email, roleIds: $roleIds)}"}
 
     logger.info('Creating new user.')
     new_user_request = requests.post('https://{}/api/graphql'.format(polaris_url),
@@ -67,9 +71,11 @@ def polaris_new_user(new_user_email, polaris_username, polaris_password, polaris
 
     if 'errors' in result:
         if result['errors'][0]['message'] == "ALREADY_EXISTS: cant create user as conflicts with existing one":
-            return 'The email {} already exists or has been previously invited to Polaris. See the Forgot password option at https://{} for access.'.format(new_user_email, polaris_url)
+            return 'The email {} already exists or has been previously invited to Polaris. See the Forgot password option at https://{} for access.'.format(
+                new_user_email, polaris_url)
         elif result['errors'][0]['message'] == "INVALID_ARGUMENT: cant create user as email address is invalid":
-            return 'Please only enter a valid email address (ex: /polaris first.last@{}). You entered /polaris {}.'.format(email_domain, new_user_email)
+            return 'Please only enter a valid email address (ex: /polaris first.last@{}). You entered /polaris {}.'.format(
+                email_domain, new_user_email)
         else:
             return result['errors'][0]['message']
     elif 'data' in result:
@@ -91,6 +97,8 @@ def slack_notify(slack_response_url, response):
 
 def lambda_handler(event, context):
 
+    logger.info(response_body)
+
     response_body = json.loads(event['Records'][0]['Sns']['Message'])
 
     slack_response_url = response_body['slack_response_url']
@@ -106,10 +114,17 @@ def lambda_handler(event, context):
     try:
         email_check = new_user_email.split('@')
         if email_check[1] != email_domain:
-            return slack_notify(slack_response_url, "{} is not a valid @{} email address.".format(new_user_email, email_domain))
+            return slack_notify(slack_response_url, "{} is not a valid @{} email address.".format(
+                new_user_email, email_domain))
         else:
-            create_new_user = polaris_new_user(new_user_email, polaris_username, polaris_password, polaris_url, email_domain)
+            create_new_user = polaris_new_user(
+                new_user_email,
+                polaris_username,
+                polaris_password,
+                polaris_url,
+                email_domain)
 
             return slack_notify(slack_response_url, '{}'.format(create_new_user))
-    except:
-        return slack_notify(slack_response_url, "Failed to create the new user account. Please notify your administrator.")
+    except BaseException:
+        return slack_notify(slack_response_url,
+                            "Failed to create the new user account. Please notify your administrator.")
